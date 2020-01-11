@@ -1,0 +1,122 @@
+{
+	"name": "z-reader",
+	"displayName": "z-reader",
+	"description": "用来摸鱼或学习的小说阅读插件,支持在线搜索和本地阅读,支持txt和epub格式",
+	"keywords": [
+		"txt",
+		"epub",
+		"reader",
+		"xiaoshuo",
+		"fiction"
+	],
+	"publisher": "aooiu",
+	"version": "0.0.3",
+	"icon": "static/images/icon-green.png",
+	"qna": "https://github.com/aooiuu/z-reader.git/issues",
+	"bugs": {
+		"url": "https://github.com/aooiuu/z-reader.git/issues",
+		"email": "aooiu@qq.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/aooiuu/z-reader.git"
+	},
+	"engines": {
+		"vscode": "^1.39.0"
+	},
+	"categories": [
+		"Other",
+		"Extension Packs"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "z-reader.local.refresh",
+				"title": "本地",
+				"category": "z-reader"
+			},
+			{
+				"command": "z-reader.local.searchQidian",
+				"title": "在线",
+				"category": "z-reader"
+			},
+			{
+				"command": "z-reader.local.openLocalDirectory",
+				"title": "打开本地文件目录",
+				"category": "z-reader"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "treeView",
+					"title": "小说",
+					"icon": "static/images/icon.svg"
+				}
+			]
+		},
+		"views": {
+			"treeView": [
+				{
+					"id": "local",
+					"name": "目录"
+				}
+			]
+		},
+		"menus": {
+			"view/title": [
+				{
+					"command": "z-reader.local.refresh",
+					"when": "view == local",
+					"group": "navigation"
+				},
+				{
+					"command": "z-reader.local.openLocalDirectory",
+					"when": "view == local"
+				},
+				{
+					"command": "z-reader.local.searchQidian",
+					"when": "view == local",
+					"group": "navigation"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "z-reader.local.openLocalDirectory",
+					"when": "view == local"
+				}
+			]
+		}
+	},
+	"activationEvents": [
+		"*"
+	],
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/cheerio": "^0.22.13",
+		"@types/glob": "^7.1.1",
+		"@types/got": "^9.6.9",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.12.21",
+		"@types/vscode": "^1.39.0",
+		"glob": "^7.1.4",
+		"mocha": "^6.1.4",
+		"tslint": "^5.12.1",
+		"typescript": "^3.3.1",
+		"vscode-test": "^1.2.0"
+	},
+	"dependencies": {
+		"cheerio": "^1.0.0-rc.3",
+		"epub": "^1.2.0",
+		"got": "^9.6.0",
+		"iconv-lite": "^0.5.0",
+		"open": "^7.0.0"
+	}
+}
