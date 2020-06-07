@@ -15,14 +15,12 @@ export interface IWebviewOption {
 
 interface IWebViewMessage {
   command: string;
-  data: object;
+  data: any;
 }
 
 interface ReaderDriver {
-  hasChapter: Function;
-  search?: Function;
-  getChapter: Function;
-  getContent: Function;
+  hasChapter: (path: string) => void;
+  getChapter: (pathStr: string) => void;
+  getContent: (path: string) => Promise<string>;
+  search?: (keyword: string) => void;
 }
-
-// 你可以通过 declare 关键字，来告诉 TypeScript，你正在试图表述一个其他地方已经存在的代码（如：写在 JavaScript、CoffeeScript 或者是像浏览器和 Node.js 运行环境里的代码）：

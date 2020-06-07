@@ -1,17 +1,18 @@
 import * as vscode from 'vscode';
 import { TreeNode } from './TreeNode';
 import { explorerNodeManager } from './explorerNodeManager';
-import { store } from '../utils/store';
 
-class TreeDataProvider implements vscode.TreeDataProvider<TreeNode> {
+class TreeDataProvider implements vscode.TreeDataProvider<TreeNode>, vscode.Disposable {
   // private context: vscode.ExtensionContext;
-  private onDidChangeTreeDataEvent: vscode.EventEmitter<TreeNode | undefined | null> = new vscode.EventEmitter<
-    TreeNode | undefined | null
-  >();
+  private onDidChangeTreeDataEvent: vscode.EventEmitter<TreeNode | undefined | null> = new vscode.EventEmitter<TreeNode | undefined | null>();
   public readonly onDidChangeTreeData: vscode.Event<any> = this.onDidChangeTreeDataEvent.event;
 
-  public initialize(context: vscode.ExtensionContext): void {
-    // this.context = context;
+  public initialize(): void {
+    // ...
+  }
+
+  public dispose() {
+    this.fire();
   }
 
   fire(): void {
@@ -24,9 +25,7 @@ class TreeDataProvider implements vscode.TreeDataProvider<TreeNode> {
       label: element.name,
       tooltip: element.name,
       iconPath: '',
-      collapsibleState: element.isDirectory
-        ? vscode.TreeItemCollapsibleState.Collapsed
-        : vscode.TreeItemCollapsibleState.None,
+      collapsibleState: element.isDirectory ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None,
       command: !element.isDirectory ? element.previewCommand : undefined
       // contextValue
     };

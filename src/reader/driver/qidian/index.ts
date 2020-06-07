@@ -11,20 +11,14 @@ class ReaderDriver implements ReaderDriverImplements {
   }
 
   public search(keyword: string): Promise<TreeNode[]> {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       got(DOMAIN + '/search?kw=' + encodeURI(keyword))
         .then((res: any) => {
           const result: TreeNode[] = [];
           const $ = cheerio.load(res.body);
-          $('.book-li').each(function(i: Number, elem: any) {
-            const title = $(elem)
-              .find('.book-title')
-              .text();
-            const author = (
-              $(elem)
-                .find('.book-author')
-                .children()[0].next.data || ''
-            ).replace(/[\s]/g, '');
+          $('.book-li').each(function (i: number, elem: any) {
+            const title = $(elem).find('.book-title').text();
+            const author = ($(elem).find('.book-author').children()[0].next.data || '').replace(/[\s]/g, '');
             const bookId = $(elem)
               .find('.book-layout')
               .attr()
@@ -50,7 +44,7 @@ class ReaderDriver implements ReaderDriverImplements {
 
   public getChapter(pathStr: string): Promise<TreeNode[]> {
     const { bookId } = JSON.parse(pathStr);
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       got(DOMAIN + '/book/' + bookId + '/catalog')
         .then((res: any) => {
           const result: TreeNode[] = [];
@@ -82,12 +76,12 @@ class ReaderDriver implements ReaderDriverImplements {
 
   public getContent(pathStr: string): Promise<string> {
     const { bookUrl } = JSON.parse(pathStr);
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       got(bookUrl)
         .then((res: any) => {
           const $ = cheerio.load(res.body);
           const txt = $('#chapterContent .read-section p')
-            .map(function(i, el) {
+            .map(function (i, el) {
               return $(el).text();
             })
             .get()

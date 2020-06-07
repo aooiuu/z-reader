@@ -11,11 +11,7 @@ export const template = (rootPath: string, htmlPath: string, data: any = false):
   const AbsHtmlPath = Path.join(rootPath, htmlPath);
   const dirPath = Path.dirname(AbsHtmlPath);
   let result = Fs.readFileSync(AbsHtmlPath, 'utf-8').replace(/(@)(.+?)"/g, (m, $1, $2) => {
-    return (
-      Uri.file(Path.resolve(dirPath, $2))
-        .with({ scheme: 'vscode-resource' })
-        .toString() + '"'
-    );
+    return Uri.file(Path.resolve(dirPath, $2)).with({ scheme: 'vscode-resource' }).toString() + '"';
   });
   if (data) {
     result = result.replace(/(\{\{)(.+?)(\}\})/g, (m, $1, $2) => {

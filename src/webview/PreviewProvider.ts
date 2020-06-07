@@ -5,7 +5,7 @@ import { Commands, WebViewMessage } from '../config';
 import { TreeNode } from '../explorer/TreeNode';
 
 class PreviewProvider extends Webview {
-  private node: string = '';
+  private node = '';
   private treeNode?: TreeNode;
 
   public show(node: string, treeNode: TreeNode): void {

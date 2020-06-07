@@ -5,7 +5,7 @@ import { ReaderDriver as ReaderDriverImplements } from '../../../@types';
 class ReaderDriver implements ReaderDriverImplements {
   public getChapter(path: string): Promise<TreeNode[]> {
     return new Promise(resolve => {
-      var book = new epub(path);
+      const book = new epub(path);
       book.on('end', function() {
         resolve(
           book.flow.map(function(e) {

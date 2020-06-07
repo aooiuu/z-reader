@@ -9,3 +9,6 @@ vsc-extension-quickstart.md
 **/*.map
 **/*.ts
 docs/**
+book/**
+!book/.gitkeep
+*.code-workspace

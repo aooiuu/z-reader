@@ -1,8 +1,6 @@
 class Store {
-  public booksPath: string = '';
-  public extensionPath: string = '';
-
-  constructor() {}
+  public booksPath = '';
+  public extensionPath = '';
 }
 
 const store = new Store();

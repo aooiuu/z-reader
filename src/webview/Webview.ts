@@ -1,4 +1,4 @@
-import { commands, ConfigurationChangeEvent, Disposable, ViewColumn, WebviewPanel, window, workspace } from 'vscode';
+import { ConfigurationChangeEvent, Disposable, WebviewPanel, window, workspace } from 'vscode';
 import { IWebviewOption, IWebViewMessage } from '../@types';
 
 export abstract class Webview implements Disposable {

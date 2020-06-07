@@ -1,26 +1,33 @@
 import { ProgressLocation, ProgressOptions, window } from 'vscode';
 
-export default class {
-  private status: boolean = false;
+export class Notification {
+  private isStop = false;
   private options: ProgressOptions = {
     location: ProgressLocation.Notification,
     title: 'loding...'
   };
-  constructor(options: ProgressOptions | any) {
-    this.options = { ...this.options, ...options };
+
+  constructor(title?: string) {
+    if (title) {
+      this.options.title = title;
+    }
+    this.start();
   }
+
   async start() {
+    this.isStop = false;
     window.withProgress(this.options, async () => {
-      await new Promise(resolve => {
+      await new Promise((resolve) => {
         setInterval(() => {
-          if (this.status) {
+          if (this.isStop) {
             resolve();
           }
         }, 500);
       });
     });
   }
+
   stop() {
-    this.status = true;
+    this.isStop = true;
   }
 }

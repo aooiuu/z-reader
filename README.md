@@ -17,11 +17,13 @@
 
 - [x] 支持格式:txt、epub
 - [x] 支持起点网小说搜索和阅读
-- [x] 支持侧边栏章节显示:epub、起点小说
+- [x] 支持笔趣阁小说搜索和阅读
+- [x] 支持侧边栏章节显示(epub、在线)
 - [x] 自定义阅读界面的CSS和HTML
 - [x] 状态栏进度显示
 - [x] 阅读进度自动保存
 - [x] 阅读进度跳转
+- [x] 自定义TXT文件编码
 
 ---
 
@@ -32,3 +34,7 @@
 ![2](https://user-images.githubusercontent.com/28108111/68991071-7556e600-0895-11ea-96ca-f8e6cbaffb1c.gif)
 
 ![3](https://user-images.githubusercontent.com/28108111/68991073-7851d680-0895-11ea-975a-52aa9875aeed.gif)
+
+---
+
+- 如果你有什么好的建议或想法, 欢迎提 `issues`

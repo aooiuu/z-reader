@@ -1,12 +1,14 @@
 export enum Commands {
   openReaderWebView = 'z-reader.local.openReaderWebView',
-  localRefresh = 'z-reader.local.refresh',
-  openLocalDirectory = 'z-reader.local.openLocalDirectory',
-  searchQidian = 'z-reader.local.searchQidian',
+  localRefresh = 'z-reader.command.refresh',
+  openLocalDirectory = 'z-reader.command.openLocalDirectory',
+  searchOnline = 'z-reader.command.searchOnline',
   editTemplateHtml = 'z-reader.editTemplateHtml',
   editTemplateCss = 'ez-reader.ditTemplateCss',
   goProgress = 'z-reader.goProgress',
-  progressUpdate = 'z-reader.progress:update'
+  progressUpdate = 'z-reader.progress:update',
+  setOnlineSite = 'z-reader.command.setOnlineSite',
+  setEncoding = 'z-reader.command.setEncoding'
 }
 
 export enum WebViewMessage {
