@@ -10,7 +10,7 @@
     "摸鱼"
   ],
   "publisher": "aooiu",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "icon": "static/images/icon-green.png",
   "qna": "https://github.com/aooiuu/z-reader.git/issues",
   "bugs": {
@@ -114,6 +114,10 @@
       "type": "object",
       "title": "z-reader",
       "properties": {
+        "z-reader.fileDir": {
+          "type": "string",
+          "description": "本地小说目录"
+        },
         "z-reader.onlineSite": {
           "type": "string",
           "default": "起点",

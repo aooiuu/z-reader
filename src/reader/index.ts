@@ -1,3 +1,4 @@
+import { workspace, window } from 'vscode';
 import * as Path from 'path';
 import * as Fs from 'fs';
 import { TreeNode, defaultProblem } from '../explorer/TreeNode';
@@ -10,6 +11,11 @@ class ReaderDriver {
   public getLocalBooks(path: string): Promise<string[]> {
     const drivers = this.getDrivers();
     return new Promise(function (resolve, reject) {
+      if (!Fs.lstatSync(path).isDirectory()) {
+        reject('读取目录失败');
+        return;
+      }
+
       Fs.readdir(path, (err: any, files: string[]) => {
         if (err || !files) {
           reject(err);
@@ -36,6 +42,7 @@ class ReaderDriver {
       });
     });
   }
+
   public getContent(treeNode: TreeNode): Promise<string> {
     console.log(treeNode);
     return new Promise(function (resolve) {
@@ -51,6 +58,7 @@ class ReaderDriver {
         });
     });
   }
+
   public getChapter(treeNode: TreeNode): Promise<TreeNode[]> {
     return new Promise(function (resolve) {
       import('./driver/' + treeNode.type.substr(1))
@@ -62,6 +70,7 @@ class ReaderDriver {
         });
     });
   }
+
   public getDrivers(): string[] {
     const driversPath = Path.resolve(__filename, '.././driver');
     const drivers = Fs.readdirSync(driversPath);
@@ -87,34 +96,36 @@ class ReaderDriver {
       });
     });
   }
+
+  public getFileDir(): string {
+    const fileDir = workspace.getConfiguration('z-reader').get('fileDir', store.booksPath);
+    return fileDir ? fileDir : store.booksPath;
+  }
+
   // 获取列表
-  public getAllBooks(): Promise<TreeNode[]> {
-    return new Promise((resolve, reject) => {
-      let chapters: any;
-      this.hasChapter()
-        .then((_chapters: any) => {
-          chapters = _chapters;
-          return this.getLocalBooks(store.booksPath);
-        })
-        .then((filePaths: string[]) => {
-          console.log('getLocalBooks', filePaths);
-          const result = filePaths.map((filePath) => {
-            const extname = Path.extname(filePath);
-            return new TreeNode(
-              Object.assign({}, defaultProblem, {
-                type: extname,
-                name: filePath,
-                isDirectory: chapters[extname.substr(1)],
-                path: Path.join(store.booksPath, filePath)
-              })
-            );
-          });
-          resolve(result);
-        })
-        .catch((e: Error) => {
-          reject(e);
-        });
-    });
+  public async getAllBooks(): Promise<TreeNode[]> {
+    const fileDir = this.getFileDir();
+    const result: TreeNode[] = [];
+    try {
+      const chapters = await this.hasChapter();
+      const filePaths = await this.getLocalBooks(fileDir);
+      filePaths.forEach((filePath: string) => {
+        const extname = Path.extname(filePath);
+        result.push(
+          new TreeNode(
+            Object.assign({}, defaultProblem, {
+              type: extname,
+              name: filePath,
+              isDirectory: chapters[extname.substr(1)],
+              path: Path.join(fileDir, filePath)
+            })
+          )
+        );
+      });
+    } catch (error) {
+      window.showWarningMessage('读取目录失败, 请检测您的目录设置');
+    }
+    return result;
   }
 
   private getSearchDriver = function (onlineSite: string): string {

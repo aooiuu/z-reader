@@ -30,7 +30,7 @@ export const localRefresh = async function () {
 };
 
 export const openLocalDirectory = function () {
-  open(store.booksPath);
+  open(readerDriver.getFileDir());
 };
 
 const _searchOnline = async function (msg: string) {
