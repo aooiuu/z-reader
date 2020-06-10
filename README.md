@@ -1,18 +1,17 @@
-# z-reader
+<h1 align="center">📚 z-reader</h1>
 
-[![Version](https://vsmarketplacebadge.apphb.com/version-short/aooiu.z-reader.svg)](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader)
-[![Rating](https://vsmarketplacebadge.apphb.com/rating-short/aooiu.z-reader.svg)](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader)
-[![Installs](https://vsmarketplacebadge.apphb.com/installs-short/aooiu.z-reader.svg)](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader)
+[![Version](https://vsmarketplacebadge.apphb.com/version-short/aooiu.z-reader.svg)](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader) [![Rating](https://vsmarketplacebadge.apphb.com/rating-short/aooiu.z-reader.svg)](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader) [![Installs](https://vsmarketplacebadge.apphb.com/installs-short/aooiu.z-reader.svg)](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader) ![stars](https://img.shields.io/github/stars/aooiuu/z-reader) ![forks](https://img.shields.io/github/forks/aooiuu/z-reader) ![release](https://img.shields.io/github/release/aooiuu/z-reader) ![issues](https://img.shields.io/github/issues/aooiuu/z-reader)
 
 > 用来摸鱼或学习的小说阅读插件,支持在线搜索和本地阅读,支持txt和epub格式
 
 - 📕 仓库地址: [github.com](https://github.com/aooiuu/z-reader)
 - 📗 插件地址: [marketplace.visualstudio.com](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader)
-- 📘 插件不断完善, 欢迎提交 [issues](https://github.com/aooiuu/z-reader/issues)、[pr](https://github.com/aooiuu/z-reader/pulls)、[star](https://github.com/aooiuu/z-reader)
+- 📘 更新日志: [CHANGELOG](https://github.com/aooiuu/z-reader/blob/dev/CHANGELOG.md)
+- 📙 插件不断完善, 欢迎提交 [issues](https://github.com/aooiuu/z-reader/issues)、[pr](https://github.com/aooiuu/z-reader/pulls)、[star](https://github.com/aooiuu/z-reader)
 
 ---
 
-## 功能
+## 🎉 功能
 
 - [x] 支持格式:txt、epub
 - [x] 支持起点网小说搜索和阅读
@@ -26,7 +25,7 @@
 
 ---
 
-## 预览
+## 🎈 预览
 
 ![1](https://user-images.githubusercontent.com/28108111/68991070-72f48c00-0895-11ea-92f0-c57e8764c700.png)
 
@@ -36,7 +35,7 @@
 
 ---
 
-## 升级指南
+## 🚀 升级指南
 
 由于小说目录默认储存在插件目录，所以升级后会不同步旧版本的小说。
 
@@ -48,7 +47,3 @@
 
 
 v1.0.1 新增设置项 `本地小说目录`, 指定小说目录用于避免升级导致的需要手动同步问题
-
----
-
-- 如果你有什么好的建议或想法, 欢迎提 `issues`
