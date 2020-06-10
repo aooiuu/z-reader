@@ -10,6 +10,7 @@ import { TemplatePath } from '../config';
 import { readerManager } from '../ReaderManager';
 import * as config from '../utils/config';
 import { Notification } from '../utils/Notification';
+import * as path from 'path';
 
 export const openReaderWebView = function (treeNode: TreeNode) {
   readerDriver.getContent(treeNode).then(function (data: string) {
@@ -64,11 +65,11 @@ export const searchOnline = async function () {
 };
 
 export const editTemplateHtml = function () {
-  openTextDocument(store.extensionPath + TemplatePath.templateHtml);
+  openTextDocument(path.join(store.extensionPath, TemplatePath.templateHtml));
 };
 
 export const editTemplateCss = function () {
-  openTextDocument(store.extensionPath + TemplatePath.templateCss);
+  openTextDocument(path.join(store.extensionPath, TemplatePath.templateCss));
 };
 
 const openTextDocument = function (path: string) {

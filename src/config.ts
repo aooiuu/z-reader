@@ -1,3 +1,5 @@
+import * as path from 'path';
+
 export enum Commands {
   openReaderWebView = 'z-reader.local.openReaderWebView',
   localRefresh = 'z-reader.command.refresh',
@@ -18,9 +20,9 @@ export enum WebViewMessage {
   progressUpdate = 'progress:update'
 }
 
-export enum TemplatePath {
-  templateCss = '\\static\\template\\default\\style.css',
-  templateHtml = '\\static\\template\\default\\index.html'
-}
+export const TemplatePath = {
+  templateCss: path.join('static', 'template', 'default', 'style.css'),
+  templateHtml: path.join('static', 'template', 'default', 'index.html')
+};
 
 export const TREEVIEW_ID = 'local';
