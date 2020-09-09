@@ -9,7 +9,7 @@ import { previewProvider } from '../webview/PreviewProvider';
 import { TemplatePath } from '../config';
 import { readerManager } from '../ReaderManager';
 import * as config from '../utils/config';
-import { Notification } from '../utils/Notification';
+import { Notification } from '../utils/notification';
 import * as path from 'path';
 
 export const openReaderWebView = function (treeNode: TreeNode) {
