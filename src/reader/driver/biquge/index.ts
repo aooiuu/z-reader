@@ -58,7 +58,7 @@ class ReaderDriver implements ReaderDriverImplements {
     } catch (error) {
       console.warn(error);
     }
-    return result;
+    return result.reverse();
   }
 
   public async getContent(pathStr: string): Promise<string> {
