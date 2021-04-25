@@ -25,4 +25,4 @@ export const TemplatePath = {
   templateHtml: path.join('static', 'template', 'default', 'index.html')
 };
 
-export const TREEVIEW_ID = 'local';
+export const TREEVIEW_ID = 'z-reader-local';

@@ -69,7 +69,7 @@
     "views": {
       "treeView": [
         {
-          "id": "local",
+          "id": "z-reader-local",
           "name": "目录"
         }
       ]
@@ -78,35 +78,35 @@
       "view/title": [
         {
           "command": "z-reader.command.refresh",
-          "when": "view == local",
+          "when": "view == z-reader-local",
           "group": "navigation"
         },
         {
           "command": "z-reader.command.searchOnline",
-          "when": "view == local",
+          "when": "view == z-reader-local",
           "group": "navigation"
         },
         {
           "command": "z-reader.command.openLocalDirectory",
-          "when": "view == local"
+          "when": "view == z-reader-local"
         },
         {
           "command": "z-reader.command.setOnlineSite",
-          "when": "view == local"
+          "when": "view == z-reader-local"
         },
         {
           "command": "z-reader.command.setEncoding",
-          "when": "view == local"
+          "when": "view == z-reader-local"
         }
       ],
       "view/item/context": [
         {
           "command": "z-reader.command.openLocalDirectory",
-          "when": "view == local"
+          "when": "view == z-reader-local"
         },
         {
           "command": "z-reader.command.setOnlineSite",
-          "when": "view == local"
+          "when": "view == z-reader-local"
         }
       ]
     },
