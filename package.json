@@ -57,8 +57,8 @@
         "category": "z-reader"
       },
       {
-        "command": "z-reader.command.clearCollect",
-        "title": "清空收藏",
+        "command": "z-reader.command.setChapterOrder",
+        "title": "设置章节显示顺序",
         "category": "z-reader"
       },
       {
@@ -80,6 +80,11 @@
         "command": "z-reader.command.cancelCollect",
         "title": "取消收藏",
         "category": "z-reader"
+      },
+      {
+        "command": "z-reader.command.clearCollect",
+        "title": "清空收藏",
+        "category": "z-reader"
       }
     ],
     "viewsContainers": {
@@ -94,7 +99,7 @@
     "views": {
       "treeView": [
         {
-          "id": "local",
+          "id": "z-reader-menu",
           "name": "目录"
         }
       ]
@@ -103,56 +108,70 @@
       "view/title": [
         {
           "command": "z-reader.command.collectList",
-          "when": "view == local",
-          "group": "navigation"
+          "when": "view == z-reader-menu",
+          "group": "navigation@1"
         },
         {
           "command": "z-reader.command.refresh",
-          "when": "view == local",
-          "group": "navigation"
+          "when": "view == z-reader-menu",
+          "group": "navigation@2"
         },
         {
           "command": "z-reader.command.searchOnline",
-          "when": "view == local",
-          "group": "navigation"
+          "when": "view == z-reader-menu",
+          "group": "navigation@3"
         },
         {
           "command": "z-reader.command.openLocalDirectory",
-          "when": "view == local"
+          "when": "view == z-reader-menu",
+          "group": "custom@1"
         },
         {
           "command": "z-reader.command.setOnlineSite",
-          "when": "view == local"
+          "when": "view == z-reader-menu",
+          "group": "custom@2"
         },
         {
           "command": "z-reader.command.setEncoding",
-          "when": "view == local"
+          "when": "view == z-reader-menu",
+          "group": "custom@3"
+        },
+        {
+          "command": "z-reader.command.setChapterOrder",
+          "when": "view == z-reader-menu",
+          "group": "custom@4"
         },
         {
           "command": "z-reader.command.editCollectList",
-          "when": "view == local"
+          "when": "view == z-reader-menu",
+          "group": "custom@5"
         },
         {
           "command": "z-reader.command.clearCollect",
-          "when": "view == local"
+          "when": "view == z-reader-menu",
+          "group": "custom@6"
         }
       ],
       "view/item/context": [
         {
           "command": "z-reader.command.openLocalDirectory",
-          "when": "view == local"
+          "when": "view == z-reader-menu && zreader.panel == local",
+          "group": "custom-item@1"
         },
         {
           "command": "z-reader.command.setOnlineSite",
-          "when": "view == local"
+          "when": "view == z-reader-menu && zreader.panel == online",
+          "group": "custom-item@2"
         },
         {
           "command": "z-reader.command.collectBook",
-          "when": "view == local"
+          "when": "view == z-reader-menu && zreader.panel != collect",
+          "group": "custom-item@3"
         },
         {
           "command": "z-reader.command.cancelCollect",
-          "when": "view == local"
+          "when": "view == z-reader-menu && zreader.panel == collect",
+          "group": "custom-item@4"
         }
       ]
     },
@@ -181,6 +200,15 @@
             "gbk"
           ],
           "description": "txt文件打开编码"
+        },
+        "z-reader.chapterOrder": {
+          "type": "string",
+          "default": "顺序",
+          "enum": [
+            "顺序",
+            "倒序"
+          ],
+          "description": "章节显示顺序"
         }
       }
     }

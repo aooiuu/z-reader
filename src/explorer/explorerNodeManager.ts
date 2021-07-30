@@ -1,4 +1,4 @@
-import { Disposable } from 'vscode';
+import { Disposable, workspace } from 'vscode';
 import { TreeNode } from './TreeNode';
 import { readerDriver } from '../reader';
 
@@ -23,7 +23,15 @@ class ExplorerNodeManager implements Disposable {
 
   // 获取
   public getChapter(treeNode: TreeNode): Promise<TreeNode[]> {
-    return readerDriver.getChapter(treeNode);
+    const vConfig = workspace.getConfiguration('z-reader');
+    const chapterOrder = vConfig.get('chapterOrder', '顺序');
+    return readerDriver.getChapter(treeNode).then(chapters => {
+      if (chapterOrder === '顺序') {
+        return chapters;
+      } else {
+        return chapters.reverse();
+      }
+    });
   }
   public dispose(): void {
     this.treeNode = [];

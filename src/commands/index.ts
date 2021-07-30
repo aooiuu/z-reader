@@ -12,6 +12,15 @@ import * as config from '../utils/config';
 import { Notification } from '../utils/notification';
 import * as path from 'path';
 
+const showNotification = function (tip?: string, timer?: number) {
+  const notification = new Notification(tip);
+  if (timer) {
+    setTimeout(() => {
+      notification.stop();
+    }, timer);
+  }
+}
+
 export const openReaderWebView = function (treeNode: TreeNode) {
   readerDriver.getContent(treeNode).then(function (data: string) {
     previewProvider.show(data, treeNode);
@@ -60,8 +69,20 @@ export const collectBook = async function (treeNode: TreeNode) {
   try {
     const list = await config.getConfig('__collect_list', []);
     console.log(treeNode)
+    let isExists = false;
+    for (let i = 0; i < list.length; i++) {
+      if (treeNode.path === list[i].path && treeNode.type === list[i].type) {
+        isExists = true;
+        break;
+      }
+    }
+    if (isExists) {
+      showNotification('已收藏该书', 1000);
+      return;
+    }
     list.push(treeNode.data);
     await config.setConfig('__collect_list', list);
+    showNotification('收藏成功', 1000);
   } catch (error) {
     console.log(error)
   }
@@ -80,10 +101,12 @@ export const cancelCollect = async function (treeNode: TreeNode) {
     list.splice(bookIndex, 1);
   }
   await config.setConfig('__collect_list', list);
+  showNotification('取消收藏成功', 1000);
 }
 
 export const clearCollect = async function () {
   await config.setConfig('__collect_list', []);
+  showNotification('清空收藏成功', 1000);
 }
 
 export const openLocalDirectory = function () {
