@@ -55,6 +55,31 @@
         "command": "z-reader.command.setEncoding",
         "title": "设置编码",
         "category": "z-reader"
+      },
+      {
+        "command": "z-reader.command.clearCollect",
+        "title": "清空收藏",
+        "category": "z-reader"
+      },
+      {
+        "command": "z-reader.command.collectList",
+        "title": "收藏",
+        "category": "z-reader"
+      },
+      {
+        "command": "z-reader.command.editCollectList",
+        "title": "编辑收藏列表",
+        "category": "z-reader"
+      },
+      {
+        "command": "z-reader.command.collectBook",
+        "title": "收藏本书",
+        "category": "z-reader"
+      },
+      {
+        "command": "z-reader.command.cancelCollect",
+        "title": "取消收藏",
+        "category": "z-reader"
       }
     ],
     "viewsContainers": {
@@ -77,6 +102,11 @@
     "menus": {
       "view/title": [
         {
+          "command": "z-reader.command.collectList",
+          "when": "view == local",
+          "group": "navigation"
+        },
+        {
           "command": "z-reader.command.refresh",
           "when": "view == local",
           "group": "navigation"
@@ -97,6 +127,14 @@
         {
           "command": "z-reader.command.setEncoding",
           "when": "view == local"
+        },
+        {
+          "command": "z-reader.command.editCollectList",
+          "when": "view == local"
+        },
+        {
+          "command": "z-reader.command.clearCollect",
+          "when": "view == local"
         }
       ],
       "view/item/context": [
@@ -106,6 +144,14 @@
         },
         {
           "command": "z-reader.command.setOnlineSite",
+          "when": "view == local"
+        },
+        {
+          "command": "z-reader.command.collectBook",
+          "when": "view == local"
+        },
+        {
+          "command": "z-reader.command.cancelCollect",
           "when": "view == local"
         }
       ]

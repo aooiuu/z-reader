@@ -10,7 +10,7 @@ export const defaultProblem: IReader = {
 };
 
 export class TreeNode {
-  constructor(private data: IReader) {}
+  constructor(public data: IReader) {}
 
   public get name(): string {
     return this.data.name;

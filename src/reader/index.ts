@@ -123,6 +123,7 @@ class ReaderDriver {
         );
       });
     } catch (error) {
+      console.log(error)
       window.showWarningMessage('读取目录失败, 请检测您的目录设置');
     }
     return result;

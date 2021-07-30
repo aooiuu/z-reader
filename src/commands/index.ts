@@ -30,6 +30,62 @@ export const localRefresh = async function () {
   notification.stop();
 };
 
+export const collectRefresh = async function () {
+  const notification = new Notification('加载收藏列表');
+  try {
+    const treeNode: TreeNode[] = [];
+    const list = await config.getConfig('__collect_list', []);
+    console.log('__collect_list', list);
+    list.forEach((v: any) => {
+      treeNode.push(new TreeNode(v))
+    })
+
+    treeDataProvider.fire();
+    explorerNodeManager.treeNode = treeNode;
+  } catch (error) {
+    console.warn(error);
+  }
+  notification.stop();
+}
+
+export const editCollectList = function () {
+  workspace.openTextDocument(config.getConfigFile('__collect_list')).then((res) => {
+    window.showTextDocument(res, {
+      preview: false
+    });
+  });
+};
+
+export const collectBook = async function (treeNode: TreeNode) {
+  try {
+    const list = await config.getConfig('__collect_list', []);
+    console.log(treeNode)
+    list.push(treeNode.data);
+    await config.setConfig('__collect_list', list);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const cancelCollect = async function (treeNode: TreeNode) {
+  const list = await config.getConfig('__collect_list', []);
+  let bookIndex = null;
+  for (let i = 0; i < list.length; i++) {
+    if (treeNode.path === list[i].path && treeNode.type === list[i].type) {
+      bookIndex = i;
+      break;
+    }
+  }
+  if (bookIndex !== null) {
+    list.splice(bookIndex, 1);
+  }
+  await config.setConfig('__collect_list', list);
+}
+
+export const clearCollect = async function () {
+  await config.setConfig('__collect_list', []);
+}
+
 export const openLocalDirectory = function () {
   open(readerDriver.getFileDir());
 };

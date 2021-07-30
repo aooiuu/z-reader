@@ -10,7 +10,12 @@ export enum Commands {
   goProgress = 'z-reader.goProgress',
   progressUpdate = 'z-reader.progress:update',
   setOnlineSite = 'z-reader.command.setOnlineSite',
-  setEncoding = 'z-reader.command.setEncoding'
+  setEncoding = 'z-reader.command.setEncoding',
+  collectRefresh = 'z-reader.command.collectList',
+  editCollectList = 'z-reader.command.editCollectList',
+  collectBook = 'z-reader.command.collectBook',
+  clearCollect = 'z-reader.command.clearCollect',
+  cancelCollect = 'z-reader.command.cancelCollect',
 }
 
 export enum WebViewMessage {

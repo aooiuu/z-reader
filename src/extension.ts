@@ -8,6 +8,11 @@ import {
   openReaderWebView,
   openLocalDirectory,
   searchOnline,
+  collectRefresh,
+  editCollectList,
+  collectBook,
+  cancelCollect,
+  clearCollect,
   localRefresh,
   editTemplateHtml,
   editTemplateCss,
@@ -20,6 +25,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   // store
   store.extensionPath = context.extensionPath;
   store.booksPath = Path.join(context.extensionPath, 'book');
+  store.globalStorageUri = context.globalStorageUri;
 
   context.subscriptions.push(
     statusbar,
@@ -36,6 +42,16 @@ export async function activate(context: ExtensionContext): Promise<void> {
     commands.registerCommand(Commands.editTemplateCss, () => editTemplateCss()),
     commands.registerCommand(Commands.goProgress, () => goProgress()),
     commands.registerCommand(Commands.progressUpdate, (data) => progressUpdate(data)),
+    // 加载收藏列表
+    commands.registerCommand(Commands.collectRefresh, () => collectRefresh()),
+    // 编辑收藏列表
+    commands.registerCommand(Commands.editCollectList, () => editCollectList()),
+    // 收藏书籍
+    commands.registerCommand(Commands.collectBook, (data) => collectBook(data)),
+    // 取消收藏书籍
+    commands.registerCommand(Commands.cancelCollect, (data) => cancelCollect(data)),
+    // 清空收藏
+    commands.registerCommand(Commands.clearCollect, () => clearCollect()),
     // 设置
     commands.registerCommand(Commands.setOnlineSite, async () => {
       const vConfig = workspace.getConfiguration('z-reader');
