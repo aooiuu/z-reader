@@ -61,7 +61,7 @@ export abstract class Webview implements Disposable {
       this.panel.webview.html = this.getWebviewContent();
     }
   }
-  protected abstract async onDidReceiveMessage(message: IWebViewMessage): Promise<void>;
+  protected abstract onDidReceiveMessage(message: IWebViewMessage): Promise<void>;
   protected abstract getWebviewOption(): IWebviewOption;
   protected abstract getWebviewContent(): string;
 }

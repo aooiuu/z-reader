@@ -35,14 +35,14 @@ export async function activate(context: ExtensionContext): Promise<void> {
     // 刷新
     commands.registerCommand(Commands.localRefresh, () => {
       commands.executeCommand('setContext', 'zreader.panel', 'local');
-      localRefresh()
+      localRefresh();
     }),
     // 打开本地目录
     commands.registerCommand(Commands.openLocalDirectory, () => openLocalDirectory()),
     // 搜索 - 起点
     commands.registerCommand(Commands.searchOnline, () => {
       commands.executeCommand('setContext', 'zreader.panel', 'online');
-      searchOnline()
+      searchOnline();
     }),
     commands.registerCommand(Commands.editTemplateHtml, () => editTemplateHtml()),
     commands.registerCommand(Commands.editTemplateCss, () => editTemplateCss()),
@@ -51,7 +51,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     // 加载收藏列表
     commands.registerCommand(Commands.collectRefresh, () => {
       commands.executeCommand('setContext', 'zreader.panel', 'collect');
-      collectRefresh()
+      collectRefresh();
     }),
     // 编辑收藏列表
     commands.registerCommand(Commands.editCollectList, () => editCollectList()),

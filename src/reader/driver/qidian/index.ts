@@ -18,7 +18,7 @@ class ReaderDriver implements ReaderDriverImplements {
           const $ = cheerio.load(res.body);
           $('.book-li').each(function (i: number, elem: any) {
             const title = $(elem).find('.book-title').text();
-            const author = ($(elem).find('.book-author').children()[0].next.data || '').replace(/[\s]/g, '');
+            const author = $(elem).find('.book-author').text().trim();
             const bookId = $(elem)
               .find('.book-layout')
               .attr()

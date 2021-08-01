@@ -16,7 +16,7 @@ class TreeDataProvider implements vscode.TreeDataProvider<TreeNode>, vscode.Disp
   }
 
   fire(): void {
-    this.onDidChangeTreeDataEvent.fire();
+    this.onDidChangeTreeDataEvent.fire(null);
   }
 
   public getTreeItem(element: TreeNode): vscode.TreeItem | Thenable<vscode.TreeItem> {

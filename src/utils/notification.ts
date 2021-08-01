@@ -20,7 +20,7 @@ export class Notification {
       await new Promise((resolve) => {
         setInterval(() => {
           if (this.isStop) {
-            resolve();
+            resolve(1);
           }
         }, 500);
       });
