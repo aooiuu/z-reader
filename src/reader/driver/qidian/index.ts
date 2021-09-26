@@ -19,20 +19,19 @@ class ReaderDriver implements ReaderDriverImplements {
           $('.book-li').each(function (i: number, elem: any) {
             const title = $(elem).find('.book-title').text();
             const author = $(elem).find('.book-author').text().trim();
-            const bookId = $(elem)
-              .find('.book-layout')
-              .attr()
-              .href.replace(/\/book\//g, '');
-            result.push(
-              new TreeNode(
-                Object.assign({}, defaultProblem, {
-                  type: '.qidian',
-                  name: `${title} - ${author}`,
-                  isDirectory: true,
-                  path: JSON.stringify({ bookId })
-                })
-              )
-            );
+            const bookIdMatch = $(elem).find('.book-layout').attr().href.match('book/(\\d+).');
+            if (bookIdMatch) {
+              result.push(
+                new TreeNode(
+                  Object.assign({}, defaultProblem, {
+                    type: '.qidian',
+                    name: `${title} - ${author}`,
+                    isDirectory: true,
+                    path: JSON.stringify({ bookId: bookIdMatch[1] })
+                  })
+                )
+              );
+            }
           });
           resolve(result);
         })
