@@ -65,20 +65,14 @@ export async function activate(context: ExtensionContext): Promise<void> {
     commands.registerCommand(Commands.setOnlineSite, async () => {
       const vConfig = workspace.getConfiguration('z-reader');
       const onlineSite = vConfig.get('onlineSite');
-      const result = await window.showQuickPick(
-        [
-          {
-            label: '起点'
-          },
-          {
-            label: '笔趣阁'
-          }
-        ],
-        {
-          placeHolder: '在线搜索来源网站, 当前设置: ' + onlineSite,
-          canPickMany: false
-        }
-      );
+      // 没有找到 showQuickPick 接口设置选中项的配置, 所以这里排序将当前设置置顶
+      const items = [{ label: '起点' }, { label: '笔趣阁' }]
+        .map((e) => ({ ...e, description: e.label === onlineSite ? '当前设置' : '' }))
+        .sort((e) => (e.label === onlineSite ? -1 : 0));
+      const result = await window.showQuickPick(items, {
+        placeHolder: '在线搜索来源网站, 当前设置: ' + onlineSite,
+        canPickMany: false
+      });
       if (result && result.label) {
         vConfig.update('onlineSite', result.label, true);
       }
