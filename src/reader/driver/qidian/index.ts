@@ -47,7 +47,7 @@ class ReaderDriver implements ReaderDriverImplements {
       got(DOMAIN + '/book/' + bookId + '/catalog')
         .then((res: any) => {
           const result: TreeNode[] = [];
-          const regEx = new RegExp('g_data.volumes = (.*?);').exec(res.body);
+          const regEx = /g_data.volumes = (.*?)\n/.exec(res.body);
           if (regEx) {
             const data: any | null = eval(regEx[1]);
             data.forEach((e: any) => {
