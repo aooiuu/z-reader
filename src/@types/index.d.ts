@@ -5,6 +5,7 @@ export interface IReader {
   name: string;
   isDirectory: boolean;
   path: string;
+  children: IReader[];
 }
 
 export interface IWebviewOption {

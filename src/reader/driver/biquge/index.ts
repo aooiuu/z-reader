@@ -1,6 +1,6 @@
 import * as got from 'got';
 import * as cheerio from 'cheerio';
-import { TreeNode, defaultProblem } from '../../../explorer/TreeNode';
+import { TreeNode, defaultTreeNode } from '../../../explorer/TreeNode';
 import { ReaderDriver as ReaderDriverImplements } from '../../../@types';
 
 const DOMAIN = 'https://www.sobiquge.com';
@@ -22,7 +22,7 @@ class ReaderDriver implements ReaderDriverImplements {
         const path = $(elem).find('a.result-game-item-pic-link').attr().href;
         result.push(
           new TreeNode(
-            Object.assign({}, defaultProblem, {
+            Object.assign({}, defaultTreeNode, {
               type: '.biquge',
               name: `${title} - ${author}`,
               isDirectory: true,
@@ -47,7 +47,7 @@ class ReaderDriver implements ReaderDriverImplements {
         const path = $(elem).find('a').attr().href;
         result.push(
           new TreeNode(
-            Object.assign({}, defaultProblem, {
+            Object.assign({}, defaultTreeNode, {
               type: '.biquge',
               name,
               isDirectory: false,

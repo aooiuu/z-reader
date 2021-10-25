@@ -22,7 +22,7 @@ class PreviewProvider extends Webview {
   }
   protected getWebviewOption(): IWebviewOption {
     return {
-      title: 'Reader',
+      title: this.treeNode?.name || 'Reader',
       viewColumn: ViewColumn.Active
     };
   }
@@ -43,6 +43,14 @@ class PreviewProvider extends Webview {
       }
       case WebViewMessage.progressUpdate: {
         commands.executeCommand(Commands.progressUpdate, message.data);
+        break;
+      }
+      case WebViewMessage.lastChapter: {
+        commands.executeCommand(Commands.lastChapter);
+        break;
+      }
+      case WebViewMessage.nextChapter: {
+        commands.executeCommand(Commands.nextChapter);
         break;
       }
     }

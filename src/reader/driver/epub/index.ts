@@ -1,16 +1,16 @@
 import * as epub from 'epub';
-import { TreeNode, defaultProblem } from '../../../explorer/TreeNode';
+import { TreeNode, defaultTreeNode } from '../../../explorer/TreeNode';
 import { ReaderDriver as ReaderDriverImplements } from '../../../@types';
 
 class ReaderDriver implements ReaderDriverImplements {
   public getChapter(path: string): Promise<TreeNode[]> {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const book = new epub(path);
-      book.on('end', function() {
+      book.on('end', function () {
         resolve(
-          book.flow.map(function(e) {
+          book.flow.map(function (e) {
             return new TreeNode(
-              Object.assign({}, defaultProblem, {
+              Object.assign({}, defaultTreeNode, {
                 type: '.epub',
                 name: e.title || e.id,
                 isDirectory: false,

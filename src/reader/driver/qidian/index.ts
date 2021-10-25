@@ -1,6 +1,6 @@
 import * as got from 'got';
 import * as cheerio from 'cheerio';
-import { TreeNode, defaultProblem } from '../../../explorer/TreeNode';
+import { TreeNode, defaultTreeNode } from '../../../explorer/TreeNode';
 import { ReaderDriver as ReaderDriverImplements } from '../../../@types';
 
 const DOMAIN = 'https://m.qidian.com';
@@ -23,7 +23,7 @@ class ReaderDriver implements ReaderDriverImplements {
             if (bookIdMatch) {
               result.push(
                 new TreeNode(
-                  Object.assign({}, defaultProblem, {
+                  Object.assign({}, defaultTreeNode, {
                     type: '.qidian',
                     name: `${title} - ${author}`,
                     isDirectory: true,
@@ -54,7 +54,7 @@ class ReaderDriver implements ReaderDriverImplements {
               e.cs.forEach((cs: any) => {
                 result.push(
                   new TreeNode(
-                    Object.assign({}, defaultProblem, {
+                    Object.assign({}, defaultTreeNode, {
                       type: '.qidian',
                       name: cs.cN,
                       isDirectory: false,

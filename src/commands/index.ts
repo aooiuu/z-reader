@@ -128,18 +128,14 @@ const _searchOnline = async function (msg: string) {
 };
 
 export const searchOnline = async function () {
-  try {
-    const msg = await window.showInputBox({
-      password: false,
-      ignoreFocusOut: false,
-      placeHolder: '请输入小说的名字',
-      prompt: ''
-    });
-    if (msg) {
-      _searchOnline(msg);
-    }
-  } catch (error) {
-    console.warn(error);
+  const msg = await window.showInputBox({
+    password: false,
+    ignoreFocusOut: false,
+    placeHolder: '请输入小说的名字',
+    prompt: ''
+  });
+  if (msg) {
+    _searchOnline(msg);
   }
 };
 
@@ -183,5 +179,36 @@ export const progressUpdate = function (data: any) {
   const treeNode = previewProvider.getTreeNode();
   if (treeNode && treeNode.type === '.txt' && typeof treeNode.path === 'string') {
     config.set(treeNode.path, 'progress', data.progress);
+  }
+};
+
+// 上一个章节
+export const lastChapter = function () {
+  const treeNode = previewProvider.getTreeNode();
+  let isSuccess = false;
+  if (treeNode) {
+    const nextNode = explorerNodeManager.lastChapter(treeNode);
+    if (nextNode) {
+      openReaderWebView(nextNode);
+      isSuccess = true;
+    }
+  }
+  if (!isSuccess) {
+    showNotification('没有上一章了~', 1000);
+  }
+};
+// 下一个章节
+export const nextChapter = function () {
+  const treeNode = previewProvider.getTreeNode();
+  let isSuccess = false;
+  if (treeNode) {
+    const nextNode = explorerNodeManager.nextChapter(treeNode);
+    if (nextNode) {
+      openReaderWebView(nextNode);
+      isSuccess = true;
+    }
+  }
+  if (!isSuccess) {
+    showNotification('没有下一章了~', 1000);
   }
 };

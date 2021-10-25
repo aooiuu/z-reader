@@ -1,134 +1,133 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+    <link rel="stylesheet" href="@./style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title></title>
-  <link rel="stylesheet" href="@./style.css">
-</head>
-
-<body>
-  <div id="app">
-    <ul id="contextmenu" style="display: none;">
-      <li><a data-cmd-param='{"cmd": "editStyle"}' title="样式编辑">样式编辑</a></li>
-      <li><a data-cmd-param='{"cmd": "editHtml"}' title="页面编辑">页面编辑</a></li>
-      <li><a data-cmd-param='{"cmd": "goProgress"}' title="进度跳转">进度跳转</a></li>
-    </ul>
-    <div class="content" style="font-size: 16px;">{{ content }}</div>
-
-  </div>
-  <script>
-    (function () {
-      var contentDiv = document.querySelector('.content');
-      var VscodeHelper = function () {
-        this.vscode = typeof acquireVsCodeApi === 'function' ? acquireVsCodeApi() : {};
-      };
-      VscodeHelper.prototype.on = function (cmd, data = {}) {
-        console.log('postMessage', arguments);
-        if (typeof this.vscode.postMessage === 'undefined') {
-          return;
-        }
-        this.vscode.postMessage({
-          command: cmd,
-          data: data
-        });
-      }
-      var mVscodeHelper = new VscodeHelper();
-
-      var throttle = function (fn, interval = 500) {
-        var timer = null;
-        var firstTime = true;
-        return function (...args) {
-          if (firstTime) {
-            fn.apply(this, args);
-            return firstTime = false;
-          }
-          if (timer) {
+  <body>
+    <div id="app">
+      <ul id="contextmenu" style="display: none">
+        <li><a data-cmd-param='{"cmd": "lastChapter"}'>上一章</a></li>
+        <li><a data-cmd-param='{"cmd": "nextChapter"}'>下一章</a></li>
+        <li class="divided"></li>
+        <li><a data-cmd-param='{"cmd": "editStyle"}'>样式编辑</a></li>
+        <li><a data-cmd-param='{"cmd": "editHtml"}'>页面编辑</a></li>
+        <li><a data-cmd-param='{"cmd": "goProgress"}'>进度跳转</a></li>
+      </ul>
+      <div class="content" style="font-size: 16px">{{ content }}</div>
+    </div>
+    <script>
+      (function () {
+        var contentDiv = document.querySelector('.content');
+        var VscodeHelper = function () {
+          this.vscode = typeof acquireVsCodeApi === 'function' ? acquireVsCodeApi() : {};
+        };
+        VscodeHelper.prototype.on = function (cmd, data = {}) {
+          console.log('postMessage', arguments);
+          if (typeof this.vscode.postMessage === 'undefined') {
             return;
           }
-          timer = setTimeout(() => {
-            clearTimeout(timer);
-            timer = null;
-            fn.apply(this, args);
-          }, interval);
-        };
-      }
-
-      mVscodeHelper.on('onload');
-
-      document.addEventListener('click', function (event) {
-        var menu = document.querySelector('#contextmenu');
-        menu.style.display = "none"
-      })
-      // 绑定通用事件
-      document.querySelectorAll('[data-cmd-param]').forEach(function (d) {
-        d.addEventListener('click', function (event) {
-          const dataset = JSON.parse(this.dataset.cmdParam);
-          mVscodeHelper.on(dataset.cmd, dataset.data || {});
-        })
-      });
-      document.oncontextmenu = function (event) {
-        var menu = document.querySelector('#contextmenu');
-        var event = event || window.event;
-        menu.style.display = 'block';
-        menu.style.left = event.clientX + 'px';
-        menu.style.top = event.clientY + 'px';
-        return false;
-      }
-      window.addEventListener('message', function (event) {
-        var message = event.data
-        if (!message.command) {
-          return;
-        }
-        switch (message.command) {
-          case 'setText':
-            setText(message.data);
-            break;
-          case 'goProgress':
-            goProgress(message.data);
-            break;
-          default:
-            break;
-        }
-      });
-
-      // 更新进度
-      var goProgress = function (data) {
-        contentDiv.scrollTop = contentDiv.scrollHeight * (new Number(data.progress || 0));
-      };
-      goProgress({ progress: '{{ progress }}' });
-      // 处理小说进度
-      if (contentDiv) {
-        // 鼠标滚轮事件
-        var contentDivOnWheel = function (e) {
-          // 滚动一屏
-          // e.deltaY > 0 ? contentDiv.scrollTop += contentDiv.style.height.replace('px', '') : contentDiv.scrollTop -= contentDiv.style.height.replace('px', '');
-          // 字体放大缩小
-          if (e.ctrlKey || e.altKey) {
-            e.preventDefault();
-            if (e.deltaY < 0) {
-              contentDiv.style.fontSize = Number(contentDiv.style.fontSize.replace('px', '')) + 1 + 'px';
-            } else {
-              contentDiv.style.fontSize = Number(contentDiv.style.fontSize.replace('px', '')) - 1 + 'px';
-            }
-          }
-        };
-        contentDiv.addEventListener("onwheel" in document ? "wheel" : "mousewheel", contentDivOnWheel);
-
-        // 滚动条事件
-        var contentDivOnScroll = throttle(function (e) {
-          var progress = e.target.scrollTop / e.target.scrollHeight;
-          mVscodeHelper.on('progress:update', {
-            progress: progress
+          this.vscode.postMessage({
+            command: cmd,
+            data: data
           });
-        }, 1000);
-        contentDiv.addEventListener('scroll', contentDivOnScroll);
-      }
+        };
+        var mVscodeHelper = new VscodeHelper();
 
-    })();
-  </script>
-</body>
+        var throttle = function (fn, interval = 500) {
+          var timer = null;
+          var firstTime = true;
+          return function (...args) {
+            if (firstTime) {
+              fn.apply(this, args);
+              return (firstTime = false);
+            }
+            if (timer) {
+              return;
+            }
+            timer = setTimeout(() => {
+              clearTimeout(timer);
+              timer = null;
+              fn.apply(this, args);
+            }, interval);
+          };
+        };
 
+        mVscodeHelper.on('onload');
+
+        document.addEventListener('click', function (event) {
+          var menu = document.querySelector('#contextmenu');
+          menu.style.display = 'none';
+        });
+        // 绑定通用事件
+        document.querySelectorAll('[data-cmd-param]').forEach(function (d) {
+          d.addEventListener('click', function (event) {
+            const dataset = JSON.parse(this.dataset.cmdParam);
+            mVscodeHelper.on(dataset.cmd, dataset.data || {});
+          });
+        });
+        document.oncontextmenu = function (event) {
+          var menu = document.querySelector('#contextmenu');
+          var event = event || window.event;
+          menu.style.display = 'block';
+          menu.style.left = event.clientX + 'px';
+          menu.style.top = event.clientY + 'px';
+          return false;
+        };
+        window.addEventListener('message', function (event) {
+          var message = event.data;
+          if (!message.command) {
+            return;
+          }
+          switch (message.command) {
+            case 'setText':
+              setText(message.data);
+              break;
+            case 'goProgress':
+              goProgress(message.data);
+              break;
+            default:
+              break;
+          }
+        });
+
+        // 更新进度
+        var goProgress = function (data) {
+          contentDiv.scrollTop = contentDiv.scrollHeight * new Number(data.progress || 0);
+        };
+        goProgress({ progress: '{{ progress }}' });
+        // 处理小说进度
+        if (contentDiv) {
+          // 鼠标滚轮事件
+          var contentDivOnWheel = function (e) {
+            // 滚动一屏
+            // e.deltaY > 0 ? contentDiv.scrollTop += contentDiv.style.height.replace('px', '') : contentDiv.scrollTop -= contentDiv.style.height.replace('px', '');
+            // 字体放大缩小
+            if (e.ctrlKey || e.altKey) {
+              e.preventDefault();
+              if (e.deltaY < 0) {
+                contentDiv.style.fontSize = Number(contentDiv.style.fontSize.replace('px', '')) + 1 + 'px';
+              } else {
+                contentDiv.style.fontSize = Number(contentDiv.style.fontSize.replace('px', '')) - 1 + 'px';
+              }
+            }
+          };
+          contentDiv.addEventListener('onwheel' in document ? 'wheel' : 'mousewheel', contentDivOnWheel);
+
+          // 滚动条事件
+          var contentDivOnScroll = throttle(function (e) {
+            var progress = e.target.scrollTop / e.target.scrollHeight;
+            mVscodeHelper.on('progress:update', {
+              progress: progress
+            });
+          }, 1000);
+          contentDiv.addEventListener('scroll', contentDivOnScroll);
+        }
+      })();
+    </script>
+  </body>
 </html>

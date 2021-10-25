@@ -17,7 +17,9 @@ import {
   editTemplateHtml,
   editTemplateCss,
   goProgress,
-  progressUpdate
+  progressUpdate,
+  nextChapter,
+  lastChapter
 } from './commands';
 
 export async function activate(context: ExtensionContext): Promise<void> {
@@ -38,29 +40,31 @@ export async function activate(context: ExtensionContext): Promise<void> {
       localRefresh();
     }),
     // 打开本地目录
-    commands.registerCommand(Commands.openLocalDirectory, () => openLocalDirectory()),
+    commands.registerCommand(Commands.openLocalDirectory, openLocalDirectory),
     // 搜索 - 起点
     commands.registerCommand(Commands.searchOnline, () => {
       commands.executeCommand('setContext', 'zreader.panel', 'online');
       searchOnline();
     }),
-    commands.registerCommand(Commands.editTemplateHtml, () => editTemplateHtml()),
-    commands.registerCommand(Commands.editTemplateCss, () => editTemplateCss()),
-    commands.registerCommand(Commands.goProgress, () => goProgress()),
-    commands.registerCommand(Commands.progressUpdate, (data) => progressUpdate(data)),
+    commands.registerCommand(Commands.editTemplateHtml, editTemplateHtml),
+    commands.registerCommand(Commands.editTemplateCss, editTemplateCss),
+    commands.registerCommand(Commands.goProgress, goProgress),
+    commands.registerCommand(Commands.progressUpdate, progressUpdate),
+    commands.registerCommand(Commands.lastChapter, lastChapter),
+    commands.registerCommand(Commands.nextChapter, nextChapter),
     // 加载收藏列表
     commands.registerCommand(Commands.collectRefresh, () => {
       commands.executeCommand('setContext', 'zreader.panel', 'collect');
       collectRefresh();
     }),
     // 编辑收藏列表
-    commands.registerCommand(Commands.editCollectList, () => editCollectList()),
+    commands.registerCommand(Commands.editCollectList, () => editCollectList),
     // 收藏书籍
-    commands.registerCommand(Commands.collectBook, (data) => collectBook(data)),
+    commands.registerCommand(Commands.collectBook, collectBook),
     // 取消收藏书籍
-    commands.registerCommand(Commands.cancelCollect, (data) => cancelCollect(data)),
+    commands.registerCommand(Commands.cancelCollect, cancelCollect),
     // 清空收藏
-    commands.registerCommand(Commands.clearCollect, () => clearCollect()),
+    commands.registerCommand(Commands.clearCollect, clearCollect),
     // 设置
     commands.registerCommand(Commands.setOnlineSite, async () => {
       const vConfig = workspace.getConfiguration('z-reader');

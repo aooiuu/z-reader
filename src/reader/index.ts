@@ -1,7 +1,7 @@
 import { workspace, window } from 'vscode';
 import * as Path from 'path';
 import * as Fs from 'fs';
-import { TreeNode, defaultProblem } from '../explorer/TreeNode';
+import { TreeNode, defaultTreeNode } from '../explorer/TreeNode';
 import { template } from '../utils/index';
 import { store } from '../utils/store';
 import * as config from '../utils/config';
@@ -113,7 +113,7 @@ class ReaderDriver {
         const extname = Path.extname(filePath);
         result.push(
           new TreeNode(
-            Object.assign({}, defaultProblem, {
+            Object.assign({}, defaultTreeNode, {
               type: extname,
               name: filePath,
               isDirectory: chapters[extname.substr(1)],
@@ -123,7 +123,7 @@ class ReaderDriver {
         );
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       window.showWarningMessage('读取目录失败, 请检测您的目录设置');
     }
     return result;

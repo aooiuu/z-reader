@@ -17,13 +17,17 @@ export enum Commands {
   collectBook = 'z-reader.command.collectBook',
   clearCollect = 'z-reader.command.clearCollect',
   cancelCollect = 'z-reader.command.cancelCollect',
+  lastChapter = 'z-reader.command.lastChapter',
+  nextChapter = 'z-reader.command.nextChapter'
 }
 
 export enum WebViewMessage {
   editStyle = 'editStyle',
   editHtml = 'editHtml',
   goProgress = 'goProgress',
-  progressUpdate = 'progress:update'
+  progressUpdate = 'progress:update',
+  lastChapter = 'lastChapter',
+  nextChapter = 'nextChapter'
 }
 
 export const TemplatePath = {
