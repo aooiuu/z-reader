@@ -3,6 +3,7 @@ import { Webview } from './Webview';
 import { IWebviewOption, IWebViewMessage } from '../@types';
 import { Commands, WebViewMessage } from '../config';
 import { TreeNode } from '../explorer/TreeNode';
+import workspaceConfiguration from '../utils/workspaceConfiguration';
 
 class PreviewProvider extends Webview {
   private node = '';
@@ -21,8 +22,10 @@ class PreviewProvider extends Webview {
     return this.node;
   }
   protected getWebviewOption(): IWebviewOption {
+    let title: string = workspaceConfiguration().get('readerViewTitle', '');
+    title = title.replaceAll('${name}', this.treeNode?.name || '');
     return {
-      title: this.treeNode?.name || 'Reader',
+      title,
       viewColumn: ViewColumn.Active
     };
   }

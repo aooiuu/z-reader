@@ -1,7 +1,8 @@
-import { ExtensionContext, window, commands, workspace } from 'vscode';
+import { ExtensionContext, window, commands } from 'vscode';
 import { statusbar } from './Statusbar';
 import { Commands, TREEVIEW_ID } from './config';
 import { store } from './utils/store';
+import workspaceConfiguration from './utils/workspaceConfiguration';
 import { treeDataProvider } from './explorer/treeDataProvider';
 import * as Path from 'path';
 import {
@@ -33,7 +34,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     statusbar,
     treeDataProvider,
     // 点击事件
-    commands.registerCommand(Commands.openReaderWebView, (data) => openReaderWebView(data)),
+    commands.registerCommand(Commands.openReaderWebView, openReaderWebView),
     // 刷新
     commands.registerCommand(Commands.localRefresh, () => {
       commands.executeCommand('setContext', 'zreader.panel', 'local');
@@ -67,8 +68,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     commands.registerCommand(Commands.clearCollect, clearCollect),
     // 设置
     commands.registerCommand(Commands.setOnlineSite, async () => {
-      const vConfig = workspace.getConfiguration('z-reader');
-      const onlineSite = vConfig.get('onlineSite');
+      const onlineSite = workspaceConfiguration().get('onlineSite');
       // 没有找到 showQuickPick 接口设置选中项的配置, 所以这里排序将当前设置置顶
       const items = [{ label: '起点' }, { label: '笔趣阁' }]
         .map((e) => ({ ...e, description: e.label === onlineSite ? '当前设置' : '' }))
@@ -78,12 +78,11 @@ export async function activate(context: ExtensionContext): Promise<void> {
         canPickMany: false
       });
       if (result && result.label) {
-        vConfig.update('onlineSite', result.label, true);
+        workspaceConfiguration().update('onlineSite', result.label, true);
       }
     }),
     commands.registerCommand(Commands.setEncoding, async () => {
-      const vConfig = workspace.getConfiguration('z-reader');
-      const encoding = vConfig.get('encoding', 'utf8');
+      const encoding = workspaceConfiguration().get('encoding', 'utf8');
       const result = await window.showQuickPick(
         [
           {
@@ -99,13 +98,12 @@ export async function activate(context: ExtensionContext): Promise<void> {
         }
       );
       if (result && result.label) {
-        vConfig.update('encoding', result.label, true);
+        workspaceConfiguration().update('encoding', result.label, true);
       }
     }),
     // 设置章节顺序
     commands.registerCommand(Commands.setChapterOrder, async () => {
-      const vConfig = workspace.getConfiguration('z-reader');
-      const chapterOrder = vConfig.get('chapterOrder', '顺序');
+      const chapterOrder = workspaceConfiguration().get('chapterOrder', '顺序');
       const result = await window.showQuickPick(
         [
           {
@@ -121,7 +119,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
         }
       );
       if (result && result.label) {
-        vConfig.update('chapterOrder', result.label, true);
+        workspaceConfiguration().update('chapterOrder', result.label, true);
       }
     }),
     // 注册 TreeView

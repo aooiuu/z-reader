@@ -10,7 +10,7 @@
     "摸鱼"
   ],
   "publisher": "aooiu",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "icon": "static/images/icon-green.png",
   "qna": "https://github.com/aooiuu/z-reader.git/issues",
   "bugs": {
@@ -209,6 +209,11 @@
             "倒序"
           ],
           "description": "章节显示顺序"
+        },
+        "z-reader.readerViewTitle": {
+          "type": "string",
+          "default": "${name}",
+          "markdownDescription": "根据阅读内容控制窗口标题。`${name}`变量可替换为章节标题"
         }
       }
     }

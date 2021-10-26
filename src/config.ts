@@ -6,7 +6,7 @@ export enum Commands {
   openLocalDirectory = 'z-reader.command.openLocalDirectory',
   searchOnline = 'z-reader.command.searchOnline',
   editTemplateHtml = 'z-reader.editTemplateHtml',
-  editTemplateCss = 'ez-reader.ditTemplateCss',
+  editTemplateCss = 'z-reader.editTemplateCss',
   goProgress = 'z-reader.goProgress',
   progressUpdate = 'z-reader.progress:update',
   setOnlineSite = 'z-reader.command.setOnlineSite',
