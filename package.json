@@ -10,7 +10,7 @@
     "摸鱼"
   ],
   "publisher": "aooiu",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "icon": "static/images/icon-green.png",
   "qna": "https://github.com/aooiuu/z-reader.git/issues",
   "bugs": {
@@ -85,6 +85,11 @@
         "command": "z-reader.command.clearCollect",
         "title": "清空收藏",
         "category": "z-reader"
+      },
+      {
+        "command": "z-reader.command.reLoadCookie",
+        "title": "重新加载cookie设置",
+        "category": "z-reader"
       }
     ],
     "viewsContainers": {
@@ -150,6 +155,11 @@
           "command": "z-reader.command.clearCollect",
           "when": "view == z-reader-menu",
           "group": "custom@6"
+        },
+        {
+          "command": "z-reader.command.reLoadCookie",
+          "when": "view == z-reader-menu",
+          "group": "custom@7"
         }
       ],
       "view/item/context": [
@@ -214,6 +224,23 @@
           "type": "string",
           "default": "${name}",
           "markdownDescription": "根据阅读内容控制窗口标题。`${name}`变量可替换为章节标题"
+        },
+        "z-reader.cookies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "markdownDescription": "`tough.CookieJar.setCookieSync()` 传入的url"
+              },
+              "cookie": {
+                "type": "string",
+                "markdownDescription": "`tough.CookieJar.setCookieSync()` 传入的cookie"
+              }
+            }
+          },
+          "markdownDescription": "设置cookie, 插件在请求时会根据配置携带cookie"
         }
       }
     }
@@ -238,6 +265,7 @@
     "@typescript-eslint/eslint-plugin": "^3.0.2",
     "@typescript-eslint/parser": "^3.0.2",
     "eslint": "^7.1.0",
+    "eslint-config-prettier": "^8.3.0",
     "glob": "^7.1.4",
     "mocha": "^6.1.4",
     "tslint": "^5.12.1",
@@ -248,8 +276,10 @@
     "cheerio": "^1.0.0-rc.3",
     "epub": "^1.2.0",
     "got": "^9.6.0",
+    "hpagent": "^0.1.2",
     "iconv-lite": "^0.5.0",
     "open": "^7.0.0",
+    "tough-cookie": "^4.0.0",
     "tslib": "^2.3.0"
   }
 }

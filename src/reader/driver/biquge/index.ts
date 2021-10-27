@@ -1,5 +1,5 @@
-import * as got from 'got';
 import * as cheerio from 'cheerio';
+import request from '../../../utils/request';
 import { TreeNode, defaultTreeNode } from '../../../explorer/TreeNode';
 import { ReaderDriver as ReaderDriverImplements } from '../../../@types';
 
@@ -14,7 +14,7 @@ class ReaderDriver implements ReaderDriverImplements {
   public async search(keyword: string): Promise<TreeNode[]> {
     const result: TreeNode[] = [];
     try {
-      const res = await got(DOMAIN2 + '/search.php?q=' + encodeURI(keyword));
+      const res = await request.send(DOMAIN2 + '/search.php?q=' + encodeURI(keyword));
       const $ = cheerio.load(res.body);
       $('.result-list .result-item.result-game-item').each(function (i: number, elem: any) {
         const title = $(elem).find('a.result-game-item-title-link span').text();
@@ -40,7 +40,7 @@ class ReaderDriver implements ReaderDriverImplements {
   public async getChapter(pathStr: string): Promise<TreeNode[]> {
     const result: TreeNode[] = [];
     try {
-      const res = await got(DOMAIN + pathStr);
+      const res = await request.send(DOMAIN + pathStr);
       const $ = cheerio.load(res.body);
       $('#list dd').each(function (i: number, elem: any) {
         const name = $(elem).find('a').text();
@@ -65,7 +65,7 @@ class ReaderDriver implements ReaderDriverImplements {
   public async getContent(pathStr: string): Promise<string> {
     let result = '';
     try {
-      const res = await got(DOMAIN + pathStr);
+      const res = await request.send(DOMAIN + pathStr);
       const $ = cheerio.load(res.body);
       const html = $('#content').html();
       result = html ? html : '';

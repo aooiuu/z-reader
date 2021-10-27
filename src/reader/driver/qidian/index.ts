@@ -1,5 +1,5 @@
-import * as got from 'got';
 import * as cheerio from 'cheerio';
+import request from '../../../utils/request';
 import { TreeNode, defaultTreeNode } from '../../../explorer/TreeNode';
 import { ReaderDriver as ReaderDriverImplements } from '../../../@types';
 
@@ -12,7 +12,8 @@ class ReaderDriver implements ReaderDriverImplements {
 
   public search(keyword: string): Promise<TreeNode[]> {
     return new Promise(function (resolve, reject) {
-      got(DOMAIN + '/search?kw=' + encodeURI(keyword))
+      request
+        .send(DOMAIN + '/search?kw=' + encodeURI(keyword))
         .then((res: any) => {
           const result: TreeNode[] = [];
           const $ = cheerio.load(res.body);
@@ -41,56 +42,56 @@ class ReaderDriver implements ReaderDriverImplements {
     });
   }
 
-  public getChapter(pathStr: string): Promise<TreeNode[]> {
+  public async getChapter(pathStr: string): Promise<TreeNode[]> {
     const { bookId } = JSON.parse(pathStr);
-    return new Promise(function (resolve, reject) {
-      got(DOMAIN + '/book/' + bookId + '/catalog')
-        .then((res: any) => {
-          const result: TreeNode[] = [];
-          const regEx = /g_data.volumes = (.*?)\n/.exec(res.body);
-          if (regEx) {
-            const data: any | null = eval(regEx[1]);
-            data.forEach((e: any) => {
-              e.cs.forEach((cs: any) => {
-                result.push(
-                  new TreeNode(
-                    Object.assign({}, defaultTreeNode, {
-                      type: '.qidian',
-                      name: cs.cN,
-                      isDirectory: false,
-                      path: JSON.stringify({ bookUrl: DOMAIN + `/book/${bookId}/${cs.id}` })
-                    })
-                  )
-                );
-              });
-            });
-          }
-          resolve(result);
-        })
-        .catch((reason: any) => {
-          reject(reason);
+    const res = await request.send(DOMAIN + '/book/' + bookId + '/catalog').catch((err) => console.warn(err));
+    if (!res) {
+      return [];
+    }
+    const result: TreeNode[] = [];
+    const regEx = /g_data.volumes = (.*?)\n/.exec(res.body);
+    try {
+      if (regEx) {
+        const data: any | null = eval(regEx[1]);
+        data.forEach((e: any) => {
+          e.cs.forEach((cs: any) => {
+            result.push(
+              new TreeNode(
+                Object.assign({}, defaultTreeNode, {
+                  type: '.qidian',
+                  name: cs.cN,
+                  isDirectory: false,
+                  path: JSON.stringify({ bookUrl: DOMAIN + `/book/${bookId}/${cs.id}` })
+                })
+              )
+            );
+          });
         });
-    });
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+    return result;
   }
 
-  public getContent(pathStr: string): Promise<string> {
+  public async getContent(pathStr: string): Promise<string> {
     const { bookUrl } = JSON.parse(pathStr);
-    return new Promise(function (resolve, reject) {
-      got(bookUrl)
-        .then((res: any) => {
-          const $ = cheerio.load(res.body);
-          const txt = $('#chapterContent .read-section p')
-            .map(function (i, el) {
-              return $(el).text();
-            })
-            .get()
-            .join('\r\n\r\n');
-          resolve(txt);
-        })
-        .catch((reason: any) => {
-          reject(reason);
-        });
-    });
+    const res = await request.send(bookUrl).catch((err) => console.warn(err));
+    if (!res) {
+      return '读取章节失败';
+    }
+    const $ = cheerio.load(res.body);
+    let txt = $('#chapterContent .read-section p')
+      .map(function (i, el) {
+        return $(el).text();
+      })
+      .get()
+      .join('\r\n');
+
+    // 收费章节提示
+    txt += $('.read-rss-auto-left').text();
+
+    return txt;
   }
 }
 

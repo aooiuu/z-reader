@@ -20,7 +20,8 @@ import {
   goProgress,
   progressUpdate,
   nextChapter,
-  lastChapter
+  lastChapter,
+  reLoadCookie
 } from './commands';
 
 export async function activate(context: ExtensionContext): Promise<void> {
@@ -53,6 +54,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     commands.registerCommand(Commands.progressUpdate, progressUpdate),
     commands.registerCommand(Commands.lastChapter, lastChapter),
     commands.registerCommand(Commands.nextChapter, nextChapter),
+    commands.registerCommand(Commands.reLoadCookie, reLoadCookie),
     // 加载收藏列表
     commands.registerCommand(Commands.collectRefresh, () => {
       commands.executeCommand('setContext', 'zreader.panel', 'collect');

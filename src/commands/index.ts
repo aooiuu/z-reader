@@ -10,6 +10,7 @@ import { TemplatePath } from '../config';
 import { readerManager } from '../ReaderManager';
 import * as config from '../utils/config';
 import { Notification } from '../utils/notification';
+import request from '../utils/request';
 import * as path from 'path';
 
 const showNotification = function (tip?: string, timer?: number) {
@@ -211,4 +212,10 @@ export const nextChapter = function () {
   if (!isSuccess) {
     showNotification('没有下一章了~', 1000);
   }
+};
+
+// 重新加载cookie
+export const reLoadCookie = function () {
+  request.reLoadCookie();
+  showNotification('重新加载cookie完成~', 1000);
 };
