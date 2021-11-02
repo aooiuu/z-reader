@@ -1,7 +1,7 @@
 import got = require('got');
 import tough = require('tough-cookie');
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
-import workspaceConfiguration from '../utils/workspaceConfiguration';
+import workspaceConfiguration from './workspaceConfiguration';
 
 interface cookiesConfig {
   url: string;

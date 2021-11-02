@@ -23,7 +23,7 @@ class PreviewProvider extends Webview {
   }
   protected getWebviewOption(): IWebviewOption {
     let title: string = workspaceConfiguration().get('readerViewTitle', '');
-    title = title.replaceAll('${name}', this.treeNode?.name || '');
+    title = title.replace(new RegExp('\\${name}', 'g'), this.treeNode?.name || '');
     return {
       title,
       viewColumn: ViewColumn.Active
