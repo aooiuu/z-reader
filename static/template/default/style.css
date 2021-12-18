@@ -10,7 +10,7 @@ body {
 }
 
 body {
-  background-color: #282c34;
+  background-color: var(--vscode-editor-background);
 }
 
 #app {
