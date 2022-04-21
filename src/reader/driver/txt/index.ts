@@ -6,7 +6,7 @@ import { ReaderDriver as ReaderDriverImplements } from '../../../@types';
 import { defaultTreeNode, TreeNode } from '../../../explorer/TreeNode';
 
 class ReaderDriver implements ReaderDriverImplements {
-  chapters:string[] = []
+  chapters: string[] = []
   previousPath = ""
 
   private getEncoding() {
@@ -15,10 +15,10 @@ class ReaderDriver implements ReaderDriverImplements {
   }
 
   public getContent(pathStr: string): Promise<string> {
-    return new Promise((resolve)=>{
+    return new Promise((resolve) => {
       this.getBookContents(pathStr).then((chapters) => {
         if (chapters.length > 0) {
-          const { path, chapterId } = JSON.parse(pathStr);
+          const { chapterId } = JSON.parse(pathStr);
           if (chapterId < chapters.length) {
             resolve(chapters[chapterId])
           }
@@ -67,7 +67,7 @@ class ReaderDriver implements ReaderDriverImplements {
     stream.on('error', (err) => {
       console.log(err.stack)
     })
-    return new Promise((resolve)=>{
+    return new Promise((resolve) => {
       let chapters: string[] = [];
       stream.on('end', () => {
         chapters = result.split(/\r\n[\r\n]+/);
