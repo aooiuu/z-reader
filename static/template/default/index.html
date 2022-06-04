@@ -94,7 +94,15 @@
               break;
           }
         });
-
+        // 绑定键盘按键 - 翻页
+        document.addEventListener('keydown', function (e) {
+          if (e.keyCode == 37) {
+            mVscodeHelper.on('lastChapter', {});
+          }
+          if (e.keyCode == 39) {
+            mVscodeHelper.on('nextChapter', {});
+          }
+        });
         // 更新进度
         var goProgress = function (data) {
           contentDiv.scrollTop = contentDiv.scrollHeight * new Number(data.progress || 0);
