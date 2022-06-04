@@ -1,4 +1,4 @@
-import { ExtensionContext, window, commands } from 'vscode';
+import { ExtensionContext, window, commands, workspace } from 'vscode';
 import { statusbar } from './Statusbar';
 import { Commands, TREEVIEW_ID } from './config';
 import { store } from './utils/store';
@@ -54,7 +54,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
     commands.registerCommand(Commands.progressUpdate, progressUpdate),
     commands.registerCommand(Commands.lastChapter, lastChapter),
     commands.registerCommand(Commands.nextChapter, nextChapter),
-    commands.registerCommand(Commands.reLoadCookie, reLoadCookie),
     // 加载收藏列表
     commands.registerCommand(Commands.collectRefresh, () => {
       commands.executeCommand('setContext', 'zreader.panel', 'collect');
@@ -131,6 +130,13 @@ export async function activate(context: ExtensionContext): Promise<void> {
     })
   );
   // localRefresh();
+
+  workspace.onDidChangeConfiguration(function (event) {
+    console.log(event);
+    if (event.affectsConfiguration('z-reader')) {
+      reLoadCookie();
+    }
+  });
 }
 
 export function deactivate() {

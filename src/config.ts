@@ -18,8 +18,7 @@ export enum Commands {
   clearCollect = 'z-reader.command.clearCollect',
   cancelCollect = 'z-reader.command.cancelCollect',
   lastChapter = 'z-reader.command.lastChapter',
-  nextChapter = 'z-reader.command.nextChapter',
-  reLoadCookie = 'z-reader.command.reLoadCookie'
+  nextChapter = 'z-reader.command.nextChapter'
 }
 
 export enum WebViewMessage {

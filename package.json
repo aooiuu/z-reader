@@ -86,11 +86,6 @@
         "command": "z-reader.command.clearCollect",
         "title": "清空收藏",
         "category": "z-reader"
-      },
-      {
-        "command": "z-reader.command.reLoadCookie",
-        "title": "重新加载cookie设置",
-        "category": "z-reader"
       }
     ],
     "viewsContainers": {
@@ -156,11 +151,6 @@
           "command": "z-reader.command.clearCollect",
           "when": "view == z-reader-menu",
           "group": "custom@6"
-        },
-        {
-          "command": "z-reader.command.reLoadCookie",
-          "when": "view == z-reader-menu",
-          "group": "custom@7"
         }
       ],
       "view/item/context": [
