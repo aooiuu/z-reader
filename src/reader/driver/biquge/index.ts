@@ -3,8 +3,8 @@ import request from '../../../utils/request';
 import { TreeNode, defaultTreeNode } from '../../../explorer/TreeNode';
 import { ReaderDriver as ReaderDriverImplements } from '../../../@types';
 
-const DOMAIN = 'https://www.sobiquge.com';
-const DOMAIN2 = 'https://m.sobiquge.com';
+const DOMAIN = 'https://www.xbiquwx.la/';
+const DOMAIN2 = 'https://www.xbiquwx.la/';
 
 class ReaderDriver implements ReaderDriverImplements {
   public hasChapter() {
@@ -14,22 +14,25 @@ class ReaderDriver implements ReaderDriverImplements {
   public async search(keyword: string): Promise<TreeNode[]> {
     const result: TreeNode[] = [];
     try {
-      const res = await request.send(DOMAIN2 + '/search.php?q=' + encodeURI(keyword));
+      const res = await request.send(DOMAIN2 + '/modules/article/search.php?searchkey=' + encodeURI(keyword));
       const $ = cheerio.load(res.body);
-      $('.result-list .result-item.result-game-item').each(function (i: number, elem: any) {
-        const title = $(elem).find('a.result-game-item-title-link span').text();
-        const author = $(elem).find('.result-game-item-info .result-game-item-info-tag:nth-child(1) span:nth-child(2)').text();
-        const path = $(elem).find('a.result-game-item-pic-link').attr().href;
-        result.push(
-          new TreeNode(
-            Object.assign({}, defaultTreeNode, {
-              type: '.biquge',
-              name: `${title} - ${author}`,
-              isDirectory: true,
-              path
-            })
-          )
-        );
+      $('.grid tbody > tr').each(function (i: number, elem: any) {
+        const title = $(elem).find('td:eq(0)').text();
+        const author = $(elem).find('.odd:eq(1)').text();
+        const path = $(elem).find('td:eq(0)').find('a').attr('href')
+        // console.log('path', $(elem).find('td:eq(0)').find('a').attr('href'));
+        if (title && author) {
+          result.push(
+            new TreeNode(
+              Object.assign({}, defaultTreeNode, {
+                type: '.biquge',
+                name: `${title} - ${author}`,
+                isDirectory: true,
+                path
+              })
+            )
+          );
+        }
       });
     } catch (error) {
       console.warn(error);
@@ -51,7 +54,7 @@ class ReaderDriver implements ReaderDriverImplements {
               type: '.biquge',
               name,
               isDirectory: false,
-              path
+              path: pathStr + path,
             })
           )
         );
@@ -65,6 +68,7 @@ class ReaderDriver implements ReaderDriverImplements {
   public async getContent(pathStr: string): Promise<string> {
     let result = '';
     try {
+      console.log('pathStr', pathStr)
       const res = await request.send(DOMAIN + pathStr);
       const $ = cheerio.load(res.body);
       const html = $('#content').html();
