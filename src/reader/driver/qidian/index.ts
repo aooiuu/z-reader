@@ -13,7 +13,7 @@ class ReaderDriver implements ReaderDriverImplements {
   public search(keyword: string): Promise<TreeNode[]> {
     return new Promise(function (resolve, reject) {
       request
-        .send(DOMAIN + '/search?kw=' + encodeURI(keyword))
+        .send(DOMAIN + '/soushu/' + encodeURI(keyword) + '.html')
         .then((res: any) => {
           const result: TreeNode[] = [];
           const $ = cheerio.load(res.body);
@@ -44,7 +44,7 @@ class ReaderDriver implements ReaderDriverImplements {
 
   public async getChapter(pathStr: string): Promise<TreeNode[]> {
     const { bookId } = JSON.parse(pathStr);
-    const res = await request.send(DOMAIN + '/book/' + bookId + '/catalog').catch((err) => console.warn(err));
+    const res = await request.send(DOMAIN + '/book/' + bookId + '/catalog').catch((err: any) => console.warn(err));
     if (!res) {
       return [];
     }
@@ -76,7 +76,7 @@ class ReaderDriver implements ReaderDriverImplements {
 
   public async getContent(pathStr: string): Promise<string> {
     const { bookUrl } = JSON.parse(pathStr);
-    const res = await request.send(bookUrl).catch((err) => console.warn(err));
+    const res = await request.send(bookUrl).catch((err: any) => console.warn(err));
     if (!res) {
       return '读取章节失败';
     }

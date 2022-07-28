@@ -1,6 +1,6 @@
 <h1 align="center">📚 z-reader</h1>
 
-[![Version](https://vsmarketplacebadge.apphb.com/version-short/aooiu.z-reader.svg)](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader) [![Rating](https://vsmarketplacebadge.apphb.com/rating-short/aooiu.z-reader.svg)](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader) [![Installs](https://vsmarketplacebadge.apphb.com/installs-short/aooiu.z-reader.svg)](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader) ![stars](https://img.shields.io/github/stars/aooiuu/z-reader) ![forks](https://img.shields.io/github/forks/aooiuu/z-reader) ![issues](https://img.shields.io/github/issues/aooiuu/z-reader?color=%23C60F4A) ![issues](https://img.shields.io/github/issues-closed/aooiuu/z-reader?color=%2347BB22)
+[![Version](https://vsmarketplacebadge.apphb.com/version-short/aooiu.z-reader.svg)](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader) [![Rating](https://vsmarketplacebadge.apphb.com/rating-short/aooiu.z-reader.svg)](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader) [![Installs](https://vsmarketplacebadge.apphb.com/installs-short/aooiu.z-reader.svg)](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader) ![stars](https://img.shields.io/github/stars/aooiuu/z-reader) ![forks](https://img.shields.io/github/forks/aooiuu/z-reader) ![issues](https://img.shields.io/github/issues/aooiuu/z-reader) ![issues](https://img.shields.io/github/issues-closed/aooiuu/z-reader?color=%2347BB22)
 
 > 用来摸鱼或学习的小说阅读插件,支持在线搜索和本地阅读,支持 txt 和 epub 格式
 
@@ -32,3 +32,7 @@
 ![2](https://user-images.githubusercontent.com/28108111/68991071-7556e600-0895-11ea-96ca-f8e6cbaffb1c.gif)
 
 ![3](https://user-images.githubusercontent.com/28108111/68991073-7851d680-0895-11ea-975a-52aa9875aeed.gif)
+
+## 摸鱼插件推荐
+
+[Tiny Tiny RSS (tt-rss) for vscode](https://github.com/aooiuu/vscode-ttrss)

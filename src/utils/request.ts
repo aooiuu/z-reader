@@ -1,5 +1,5 @@
-import got = require('got');
-import tough = require('tough-cookie');
+import got, { Agents } from 'got';
+import * as tough from 'tough-cookie';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
 import workspaceConfiguration from './workspaceConfiguration';
 
@@ -10,7 +10,7 @@ interface cookiesConfig {
 
 class Requset {
   cookieJar: tough.CookieJar;
-  agent: got.AgentOptions | undefined;
+  agent: Agents | undefined;
 
   constructor() {
     this.cookieJar = new tough.CookieJar();
@@ -46,7 +46,8 @@ class Requset {
 
   send(options: any) {
     if (typeof options === 'string') {
-      return got(options, {
+      return got({
+        url: options,
         cookieJar: this.cookieJar,
         agent: this.agent
       });
