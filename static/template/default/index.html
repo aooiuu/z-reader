@@ -22,12 +22,13 @@
     </div>
     <script>
       (function () {
-        var contentDiv = document.querySelector('.content');
+        var contentEl = document.querySelector('.content');
+        var appEl = document.querySelector('#app');
+
         var VscodeHelper = function () {
           this.vscode = typeof acquireVsCodeApi === 'function' ? acquireVsCodeApi() : {};
         };
         VscodeHelper.prototype.on = function (cmd, data = {}) {
-          console.log('postMessage', arguments);
           if (typeof this.vscode.postMessage === 'undefined') {
             return;
           }
@@ -84,9 +85,6 @@
             return;
           }
           switch (message.command) {
-            case 'setText':
-              setText(message.data);
-              break;
             case 'goProgress':
               goProgress(message.data);
               break;
@@ -105,36 +103,34 @@
         });
         // 更新进度
         var goProgress = function (data) {
-          contentDiv.scrollTop = contentDiv.scrollHeight * new Number(data.progress || 0);
+          appEl.scrollTop = appEl.scrollHeight * new Number(data.progress || 0);
         };
         goProgress({ progress: '{{ progress }}' });
         // 处理小说进度
-        if (contentDiv) {
+        if (contentEl) {
           // 鼠标滚轮事件
-          var contentDivOnWheel = function (e) {
-            // 滚动一屏
-            // e.deltaY > 0 ? contentDiv.scrollTop += contentDiv.style.height.replace('px', '') : contentDiv.scrollTop -= contentDiv.style.height.replace('px', '');
+          var contentElOnWheel = function (e) {
             // 字体放大缩小
             if (e.ctrlKey || e.altKey) {
               e.preventDefault();
               if (e.deltaY < 0) {
-                contentDiv.style.fontSize = Number(contentDiv.style.fontSize.replace('px', '')) + 1 + 'px';
+                contentEl.style.fontSize = Number(contentEl.style.fontSize.replace('px', '')) + 1 + 'px';
               } else {
-                contentDiv.style.fontSize = Number(contentDiv.style.fontSize.replace('px', '')) - 1 + 'px';
+                contentEl.style.fontSize = Number(contentEl.style.fontSize.replace('px', '')) - 1 + 'px';
               }
             }
           };
-          contentDiv.addEventListener('onwheel' in document ? 'wheel' : 'mousewheel', contentDivOnWheel);
-
-          // 滚动条事件
-          var contentDivOnScroll = throttle(function (e) {
-            var progress = e.target.scrollTop / e.target.scrollHeight;
-            mVscodeHelper.on('progress:update', {
-              progress: progress
-            });
-          }, 1000);
-          contentDiv.addEventListener('scroll', contentDivOnScroll);
+          contentEl.addEventListener('onwheel' in document ? 'wheel' : 'mousewheel', contentElOnWheel);
         }
+
+        // 滚动条事件
+        var contentElOnScroll = throttle(function (e) {
+          var progress = e.target.scrollTop / e.target.scrollHeight;
+          mVscodeHelper.on('progress:update', {
+            progress: progress
+          });
+        }, 1000);
+        appEl.addEventListener('scroll', contentElOnScroll);
       })();
     </script>
   </body>
