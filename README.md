@@ -1,6 +1,6 @@
 <h1 align="center">📚 z-reader</h1>
 
-![stars](https://img.shields.io/github/stars/aooiuu/z-reader) ![forks](https://img.shields.io/github/forks/aooiuu/z-reader) ![issues](https://img.shields.io/github/issues/aooiuu/z-reader) ![issues](https://img.shields.io/github/issues-closed/aooiuu/z-reader?color=%2347BB22)
+![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/aooiu.z-reader) ![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/aooiu.z-reader) ![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/aooiu.z-reader)![stars](https://img.shields.io/github/stars/aooiuu/z-reader) ![forks](https://img.shields.io/github/forks/aooiuu/z-reader) ![issues](https://img.shields.io/github/issues/aooiuu/z-reader) ![issues](https://img.shields.io/github/issues-closed/aooiuu/z-reader?color=%2347BB22)
 
 > 用来摸鱼或学习的小说阅读插件,支持在线搜索和本地阅读,支持 txt 和 epub 格式
 
