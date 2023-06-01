@@ -17,10 +17,9 @@ class ReaderDriver implements ReaderDriverImplements {
       const res = await request.send(DOMAIN2 + '/modules/article/search.php?searchkey=' + encodeURI(keyword));
       const $ = cheerio.load(res.body);
       $('.grid tbody > tr').each(function (i: number, elem: any) {
-        const title = $(elem).find('td:eq(0)').text();
-        const author = $(elem).find('.odd:eq(1)').text();
-        const path = $(elem).find('td:eq(0)').find('a').attr('href')
-        // console.log('path', $(elem).find('td:eq(0)').find('a').attr('href'));
+        const title = $(elem).find('td:nth-child(1)').text();
+        const author = $(elem).find('td:nth-child(2)').text();
+        const path = $(elem).find('td:nth-child(1)').find('a').attr('href');
         if (title && author) {
           result.push(
             new TreeNode(
@@ -54,7 +53,7 @@ class ReaderDriver implements ReaderDriverImplements {
               type: '.biquge',
               name,
               isDirectory: false,
-              path: pathStr + path,
+              path: pathStr + path
             })
           )
         );
@@ -68,7 +67,6 @@ class ReaderDriver implements ReaderDriverImplements {
   public async getContent(pathStr: string): Promise<string> {
     let result = '';
     try {
-      console.log('pathStr', pathStr)
       const res = await request.send(DOMAIN + pathStr);
       const $ = cheerio.load(res.body);
       const html = $('#content').html();
