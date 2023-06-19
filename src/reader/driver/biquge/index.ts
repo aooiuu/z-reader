@@ -3,8 +3,8 @@ import request from '../../../utils/request';
 import { TreeNode, defaultTreeNode } from '../../../explorer/TreeNode';
 import { ReaderDriver as ReaderDriverImplements } from '../../../@types';
 
-const DOMAIN = 'https://www.xbiquwx.la/';
-const DOMAIN2 = 'https://www.xbiquwx.la/';
+const DOMAIN = 'https://www.biquzw.info/';
+const DOMAIN2 = 'https://www.biquzw.info/';
 
 class ReaderDriver implements ReaderDriverImplements {
   public hasChapter() {
