@@ -2,6 +2,7 @@ import got, { Agents } from 'got';
 import * as tough from 'tough-cookie';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
 import workspaceConfiguration from './workspaceConfiguration';
+import { showWarningMessage } from '../utils/notification';
 
 interface cookiesConfig {
   url: string;
@@ -44,20 +45,22 @@ class Requset {
     }
   }
 
-  send(options: any) {
-    if (typeof options === 'string') {
-      return got({
-        url: options,
-        cookieJar: this.cookieJar,
-        agent: this.agent
-      });
-    } else {
-      return got({
-        ...options,
-        cookieJar: this.cookieJar,
-        agent: this.agent
-      });
-    }
+  async send(options: any) {
+    const requestOptions =
+      typeof options === 'string'
+        ? {
+            url: options
+          }
+        : options;
+    const res = await got({
+      ...requestOptions,
+      cookieJar: this.cookieJar,
+      agent: this.agent
+    }).catch((e) => {
+      showWarningMessage('网络错误: ' + e.message);
+      throw e;
+    });
+    return res;
   }
 }
 

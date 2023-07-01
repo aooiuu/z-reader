@@ -31,3 +31,16 @@ export class Notification {
     this.isStop = true;
   }
 }
+
+export function showNotification(tip?: string, timer?: number) {
+  const notification = new Notification(tip);
+  if (timer) {
+    setTimeout(() => {
+      notification.stop();
+    }, timer);
+  }
+}
+
+export function showWarningMessage(tip: string) {
+  window.showWarningMessage(tip);
+}

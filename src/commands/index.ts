@@ -9,18 +9,9 @@ import { previewProvider } from '../webview/PreviewProvider';
 import { TemplatePath } from '../config';
 import { readerManager } from '../ReaderManager';
 import * as config from '../utils/config';
-import { Notification } from '../utils/notification';
+import { Notification, showNotification } from '../utils/notification';
 import request from '../utils/request';
 import * as path from 'path';
-
-const showNotification = function (tip?: string, timer?: number) {
-  const notification = new Notification(tip);
-  if (timer) {
-    setTimeout(() => {
-      notification.stop();
-    }, timer);
-  }
-};
 
 export const openReaderWebView = function (treeNode: TreeNode) {
   readerDriver.getContent(treeNode).then(function (data: string) {
