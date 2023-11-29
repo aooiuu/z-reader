@@ -17,7 +17,7 @@ class ReaderDriver implements ReaderDriverImplements {
       const $ = cheerio.load(res.body);
       $('.grid tbody > tr').each(function (i: number, elem: any) {
         const title = $(elem).find('td:nth-child(1)').text();
-        const author = $(elem).find('td:nth-child(2)').text();
+        const author = $(elem).find('td:nth-child(3)').text();
         const path = $(elem).find('td:nth-child(1)').find('a').attr('href');
         if (title && author) {
           result.push(
