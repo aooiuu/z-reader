@@ -7,6 +7,10 @@ export const open = (path: string) => {
   return Open(path, { wait: true });
 };
 
+export const mkdir = (path: string) =>{
+  return Fs.mkdirSync(path, { recursive: true });
+}
+
 export const template = (rootPath: string, htmlPath: string, data: any = false): any => {
   const AbsHtmlPath = Path.join(rootPath, htmlPath);
   const dirPath = Path.dirname(AbsHtmlPath);

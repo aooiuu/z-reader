@@ -1,4 +1,4 @@
-import { open } from '../utils/index';
+import { mkdir, open } from '../utils/index';
 import { store } from '../utils/store';
 import { window, workspace } from 'vscode';
 import { readerDriver } from '../reader';
@@ -102,7 +102,9 @@ export const clearCollect = async function () {
 };
 
 export const openLocalDirectory = function () {
-  open(readerDriver.getFileDir());
+  const fileDir = readerDriver.getFileDir();
+  mkdir(fileDir);
+  open(fileDir);
 };
 
 const _searchOnline = async function (msg: string) {
