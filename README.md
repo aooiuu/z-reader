@@ -1,3 +1,7 @@
+⚠️⚠️⚠️ 建议使用插件 [any-reader](https://github.com/aooiuu/any-reader) ⚠️⚠️⚠️
+
+---
+
 <h1 align="center">📚 z-reader</h1>
 
 ![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/aooiu.z-reader) ![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/aooiu.z-reader) ![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/aooiu.z-reader)![stars](https://img.shields.io/github/stars/aooiuu/z-reader) ![forks](https://img.shields.io/github/forks/aooiuu/z-reader) ![issues](https://img.shields.io/github/issues/aooiuu/z-reader) ![issues](https://img.shields.io/github/issues-closed/aooiuu/z-reader?color=%2347BB22)
@@ -8,8 +12,6 @@
 - 📗 插件地址: [marketplace.visualstudio.com](https://marketplace.visualstudio.com/items?itemName=aooiu.z-reader)
 - 📘 更新日志: [CHANGELOG](https://github.com/aooiuu/z-reader/blob/master/CHANGELOG.md)
 - 📙 插件不断完善, 欢迎提交 [issues](https://github.com/aooiuu/z-reader/issues)、[pr](https://github.com/aooiuu/z-reader/pulls)、[star](https://github.com/aooiuu/z-reader)
-
----
 
 ## 🎉 功能
 
@@ -31,7 +33,6 @@
 
 ![2](https://user-images.githubusercontent.com/28108111/68991071-7556e600-0895-11ea-96ca-f8e6cbaffb1c.gif)
 
-![3](https://user-images.githubusercontent.com/28108111/68991073-7851d680-0895-11ea-975a-52aa9875aeed.gif)
 
 ## 摸鱼插件推荐
 
